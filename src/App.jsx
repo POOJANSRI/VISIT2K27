@@ -15,52 +15,22 @@ import Footer    from './components/Footer';
 
 function IntroSequence({ onComplete }) {
   useEffect(() => {
-    const t = setTimeout(onComplete, 5000);
+    const t = setTimeout(onComplete, 5000); // Intro duration (adjust if video is longer/shorter)
     return () => clearTimeout(t);
   }, [onComplete]);
 
   return (
-    <div className="intro-seq">
-      {/* AI Agent scanning background */}
-      <div className="agent-grid"></div>
+    <div className="intro-seq" style={{ background: '#000' }}>
+      <video
+        autoPlay
+        muted
+        playsInline
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
+      >
+        <source src="/hero-bg-2.mp4" type="video/mp4" />
+      </video>
 
-      {/* Radar Sweep */}
-      <div className="radar"></div>
-      
-      {/* Sparks */}
-      <div className="sparks">
-        <i style={{'--d': '0s', '--x': '10vw'}}></i>
-        <i style={{'--d': '1.2s', '--x': '50vw'}}></i>
-        <i style={{'--d': '2s', '--x': '80vw'}}></i>
-        <i style={{'--d': '0.5s', '--x': '30vw'}}></i>
-        <i style={{'--d': '2.5s', '--x': '65vw'}}></i>
-      </div>
-      
-      {/* Digital Flower / Neural Core behind chip */}
-      <div className="digital-flower">
-        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      </div>
-
-      {/* Futuristic Bracket UI */}
-      <div className="ui-brackets">
-        <div className="tl"></div><div className="tr"></div>
-        <div className="bl"></div><div className="br"></div>
-      </div>
-
-      {/* Data stream */}
-      <div className="data-stream">
-        INITIATING AGENT PROTOCOL...<br/>
-        SYSTEM CHECK: OPTIMAL<br/>
-        LOADING VISIT_2K27.EXE
-      </div>
-
-      <div className="chip-container">
-        <div className="chip">
-          <div className="chip-glare"></div>
-          <h1 className="chip-text">VISIT 2K27</h1>
-        </div>
-      </div>
-      <button className="skip-intro-btn" onClick={onComplete}>Skip Intro</button>
+      <button className="skip-intro-btn" onClick={onComplete} style={{ zIndex: 10 }}>Skip Intro</button>
     </div>
   );
 }
@@ -85,7 +55,7 @@ export default function App() {
   const [introFinished, setIntroFinished] = useState(false); // Track if intro video is done
 
   useEffect(() => {
-    const delay = reduce ? 0 : 1100;
+    const delay = reduce ? 0 : 2200;
     const t = setTimeout(() => {
       const pl = document.querySelector('.preloader');
       if (pl) pl.classList.add('done');

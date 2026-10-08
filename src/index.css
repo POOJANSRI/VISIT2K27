@@ -202,13 +202,37 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 /* =========================================================
    PRELOADER
    ========================================================= */
-.preloader{position:fixed;inset:0;z-index:300;background:var(--bg);display:grid;place-items:center;transition:transform .9s var(--ease),opacity .9s var(--ease)}
-.preloader .pl-line{position:absolute;left:0;top:50%;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left;animation:draw .7s var(--ease) forwards}
-.preloader .pl-word{font:300 clamp(32px,6vw,64px)/1 var(--f-display);letter-spacing:.12em;opacity:0;transform:translateY(-36px);animation:fade .5s .35s var(--ease) forwards}
-.preloader .pl-word span{color:var(--gold)}
-.preloader.done{transform:translateY(-100%);opacity:0;pointer-events:none}
-@keyframes draw{to{transform:scaleX(1)}}
-@keyframes fade{to{opacity:1;transform:none}}
+.preloader { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; pointer-events: auto; }
+.preloader.done { pointer-events: none; visibility: hidden; transition: visibility 0s 1.2s; }
+
+.pl-panel { position: absolute; left: 0; width: 100%; height: 50vh; background: var(--bg); transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1); z-index: 1; }
+.pl-panel-top { top: 0; transform-origin: top; border-bottom: 1px solid rgba(201, 169, 110, 0.1); }
+.pl-panel-bottom { bottom: 0; transform-origin: bottom; border-top: 1px solid rgba(201, 169, 110, 0.1); }
+.preloader.done .pl-panel-top { transform: translateY(-100%); }
+.preloader.done .pl-panel-bottom { transform: translateY(100%); }
+
+.pl-ribbon { position: absolute; top: 50%; height: 2px; width: 50%; background: var(--gold); box-shadow: 0 0 12px var(--gold); z-index: 3; transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1); }
+.pl-ribbon-left { left: 0; transform: scaleX(0); transform-origin: left; animation: ribbon-draw 0.8s cubic-bezier(0.8, 0, 0.2, 1) forwards; }
+.pl-ribbon-right { right: 0; transform: scaleX(0); transform-origin: right; animation: ribbon-draw 0.8s cubic-bezier(0.8, 0, 0.2, 1) forwards; }
+
+.preloader.done .pl-ribbon-left { transform: scaleX(0) !important; transform-origin: left; animation: none; }
+.preloader.done .pl-ribbon-right { transform: scaleX(0) !important; transform-origin: right; animation: none; }
+
+.pl-word { font: 300 clamp(32px,6vw,64px)/1 var(--f-display); letter-spacing: .12em; opacity: 0; transform: translateY(-20%) scale(0.95); animation: word-appear 1s 0.6s cubic-bezier(0.2, 1, 0.3, 1) forwards; z-index: 4; position: relative; }
+.pl-word span { color: var(--gold); }
+.preloader.done .pl-word { animation: none; opacity: 0; transform: translateY(-65%) scale(1.1); transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.8, 0, 0.2, 1); }
+
+.pl-petals { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+.pl-petal { position: absolute; top: -20px; width: 12px; height: 16px; background: linear-gradient(135deg, var(--gold-light), var(--gold-deep)); border-radius: 50% 0 50% 0; box-shadow: 0 0 8px rgba(201, 169, 110, 0.6); opacity: 0; animation: fall-petal linear infinite; }
+
+@keyframes ribbon-draw { to { transform: scaleX(1); } }
+@keyframes word-appear { to { opacity: 1; transform: translateY(-65%) scale(1); } }
+@keyframes fall-petal {
+  0% { transform: translateY(-5vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
 
 /* =========================================================
    PURE CSS 3D INTRO SEQUENCE
