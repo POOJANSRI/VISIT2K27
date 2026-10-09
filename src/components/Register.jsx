@@ -144,13 +144,13 @@ export default function Register({ selectedEvents, setSelectedEvents }) {
             <div className="pills" id="pills">
               {EVENTS.map(ev => (
                 <button
-                  key={ev[0]}
+                  key={ev.name}
                   type="button"
                   className="pill"
-                  aria-pressed={selectedEvents.includes(ev[0])}
-                  onClick={() => togglePill(ev[0])}
+                  aria-pressed={selectedEvents.includes(ev.name)}
+                  onClick={() => togglePill(ev.name)}
                 >
-                  {ev[0]}
+                  {ev.name}
                 </button>
               ))}
             </div>

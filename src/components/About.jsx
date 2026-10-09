@@ -1,3 +1,5 @@
+import { EVENTS } from '../data';
+
 export default function About() {
   return (
     <section id="about">
@@ -16,8 +18,8 @@ export default function About() {
               from across the region.
             </p>
             <p>
-              Eight events span prompt engineering, competitive programming, model building and research.
-              Every round is designed to reward clear thinking over noise.
+              An incredible array of {EVENTS.length} events spanning literary, cultural, technical, and sports competitions.
+              Every round is designed to reward clear thinking, talent, and innovation over noise.
             </p>
           </div>
         </div>
@@ -31,7 +33,7 @@ export default function About() {
           </div>
           <div className="stat" role="listitem">
             <span className="stat-num gold-text">
-              <span data-count="8">0</span>
+              <span data-count={EVENTS.length}>0</span>
             </span>
             <span className="label">Events</span>
           </div>
@@ -39,7 +41,7 @@ export default function About() {
             <span className="stat-num gold-text">
               ₹<span data-count="50000" data-fmt="in">0</span>
             </span>
-            <span className="label">Prize Pool [₹XX,000]</span>
+            <span className="label">Prize Pool</span>
           </div>
           <div className="stat" role="listitem">
             <span className="stat-num gold-text">

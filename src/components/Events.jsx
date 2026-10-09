@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { EVENTS, ICONS } from '../data';
 
-function EventModal({ idx, onClose, onRegister }) {
-  const e = EVENTS[idx];
-  if (!e) return null;
+function EventModal({ event, onClose }) {
+  if (!event) return null;
 
   const li = items => items.map((x, i) => <li key={i}>{x}</li>);
 
@@ -29,14 +28,14 @@ function EventModal({ idx, onClose, onRegister }) {
           </svg>
         </button>
 
-        <span className="label" id="mNo">Event 0{idx + 1} · {e[3]}</span>
-        <h3 id="mTitle">{e[0]}</h3>
-        <p className="muted" id="mDesc">{e[1]}</p>
+        <span className="label" id="mNo">{event.category}</span>
+        <h3 id="mTitle">{event.name}</h3>
+        <p className="muted" id="mDesc">{event.description}</p>
 
         <div className="m-grid" id="mGrid">
           <div>
             <h4 className="label">Rules</h4>
-            <ul>{li([`Team size: ${e[2]}`, 'Bring a valid college ID', 'Judges\u2019 decision is final', '[Event-specific rules]'])}</ul>
+            <ul>{li([`Team size: ${event.team}`, 'Bring a valid college ID', 'Judges\u2019 decision is final', '[Event-specific rules]'])}</ul>
           </div>
           <div>
             <h4 className="label">Rounds</h4>
@@ -48,7 +47,7 @@ function EventModal({ idx, onClose, onRegister }) {
           </div>
           <div>
             <h4 className="label">When &amp; Where</h4>
-            <ul>{li([`${e[3]}, [HH:MM]`, '[Venue / Lab]'])}</ul>
+            <ul>{li([`[Time], [Date]`, '[Venue / Lab]'])}</ul>
           </div>
           <div>
             <h4 className="label">Coordinators</h4>
@@ -56,29 +55,37 @@ function EventModal({ idx, onClose, onRegister }) {
           </div>
         </div>
 
-        <button className="btn btn-gold" id="mReg" onClick={() => { onRegister(idx); onClose(); }}>
+        <a 
+          href={event.formLink || "#"} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="btn btn-gold magnetic" 
+          style={{ marginTop: '24px', display: 'inline-flex' }}
+        >
           Register for this event <span className="arrow">→</span>
-        </button>
+        </a>
+
       </div>
     </div>
   );
 }
 
 export default function Events({ onSelectEvent }) {
-  const [openIdx, setOpenIdx] = useState(null);
+  const [openEvent, setOpenEvent] = useState(null);
+  const categories = useMemo(() => [...new Set(EVENTS.map(e => e.category))], []);
 
   // Close on Escape
-  const handleKey = (e, idx) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenIdx(idx); }
+  const handleKey = (e, ev) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenEvent(ev); }
   };
 
   const closeModal = () => {
-    setOpenIdx(null);
+    setOpenEvent(null);
     document.body.style.overflow = '';
   };
 
-  const openModal = idx => {
-    setOpenIdx(idx);
+  const openModal = ev => {
+    setOpenEvent(ev);
     document.body.style.overflow = 'hidden';
   };
 
@@ -87,39 +94,51 @@ export default function Events({ onSelectEvent }) {
       <div className="container">
         <div className="sec-head rv">
           <span className="label">02 — Events</span>
-          <h2>Eight disciplines. <em>One stage.</em></h2>
+          <h2>A variety of events. <em>One stage.</em></h2>
         </div>
 
-        <div className="events-grid" id="eventsGrid">
-          {EVENTS.map((e, i) => (
-            <button
-              key={i}
-              className="ev rv"
-              type="button"
-              aria-haspopup="dialog"
-              onClick={() => openModal(i)}
-              onKeyDown={ev => handleKey(ev, i)}
-            >
-              <div className="ev-top">
-                <span className="ev-no">0{i + 1}</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true"
-                  dangerouslySetInnerHTML={{ __html: ICONS[e[4]] }}
-                />
+        <div className="events-container">
+          {categories.map(cat => (
+            <div key={cat} style={{ marginBottom: '4rem' }}>
+              <h3 style={{ fontSize: '1.8rem', color: 'var(--gold)', marginBottom: '1.5rem', borderBottom: '1px solid var(--line)', paddingBottom: '0.5rem' }}>
+                {cat}
+              </h3>
+              <div className="events-grid" id={`eventsGrid-${cat}`}>
+                {EVENTS.filter(e => e.category === cat).map((e, i) => (
+                  <button
+                    key={e.name}
+                    className="ev rv in"
+                    type="button"
+                    aria-haspopup="dialog"
+                    onClick={() => openModal(e)}
+                    onKeyDown={ev => handleKey(ev, e)}
+                  >
+                    <div className="ev-node tl"></div>
+                    <div className="ev-node tr"></div>
+                    <div className="ev-node bl"></div>
+                    <div className="ev-node br"></div>
+                    <div className="ev-top">
+                      <span className="ev-no">{(i + 1).toString().padStart(2, '0')}</span>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"
+                        dangerouslySetInnerHTML={{ __html: ICONS[e.iconKey] || ICONS['prompt'] }}
+                      />
+                    </div>
+                    <h3>{e.name}</h3>
+                    <p>{e.description}</p>
+                    <div className="ev-meta">
+                      <span>Team: {e.team}</span>
+                    </div>
+                  </button>
+                ))}
               </div>
-              <h3>{e[0]}</h3>
-              <p>{e[1]}</p>
-              <div className="ev-meta">
-                <span>Team {e[2]}</span>
-                <span>{e[3]}</span>
-              </div>
-            </button>
+            </div>
           ))}
         </div>
       </div>
 
-      {openIdx !== null && (
+      {openEvent && (
         <EventModal
-          idx={openIdx}
+          event={openEvent}
           onClose={closeModal}
           onRegister={onSelectEvent}
         />

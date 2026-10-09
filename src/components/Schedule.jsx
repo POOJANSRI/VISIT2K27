@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { SCHEDULE } from '../data';
 
-const DAY_LABELS = ['Day 1', 'Day 2', 'Day 3'];
+const DAY_LABELS = SCHEDULE.map((_, i) => `Day ${i + 1}`);
 
 export default function Schedule() {
   const [activeDay, setActiveDay] = useState(0);

@@ -847,3 +847,238 @@ body {
   .rv{opacity:1;transform:none}
   .hero .line>*{transform:none}
 }
+
+/* =========================================================
+   CIRCUIT BOARD GLOWING BORDER EFFECT
+   ========================================================= */
+@property --circuit-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes circuit-spin {
+  from { --circuit-angle: 0deg; }
+  to { --circuit-angle: 360deg; }
+}
+
+.ev, .stat, .prize, .p-card, .form, .map, .countdown {
+  position: relative;
+  z-index: 1;
+}
+
+.ev::before, .stat::before, .prize::before, .p-card::before, .form::before, .map::before, .countdown::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--circuit-angle),
+    transparent 0%,
+    transparent 60%,
+    rgba(201, 169, 110, 0.4) 75%,
+    var(--gold-light) 90%,
+    var(--gold) 95%,
+    transparent 100%
+  );
+  z-index: -2;
+  animation: circuit-spin 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+  pointer-events: none;
+}
+
+.ev::after, .stat::after, .prize::after, .p-card::after, .form::after, .map::after, .countdown::after {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  background: rgba(18, 19, 24, 0.85); /* Slightly darker to let glow pop */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: inherit;
+  z-index: -1;
+  transition: background 0.5s var(--ease);
+  pointer-events: none;
+}
+
+/* Light mode overrides for inner background */
+[data-theme="light"] .ev::after, 
+[data-theme="light"] .stat::after, 
+[data-theme="light"] .prize::after, 
+[data-theme="light"] .p-card::after, 
+[data-theme="light"] .form::after, 
+[data-theme="light"] .map::after, 
+[data-theme="light"] .countdown::after {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.ev:hover::before, .stat:hover::before, .prize:hover::before, .p-card:hover::before, .form:focus-within::before, .map:hover::before, .countdown:hover::before {
+  opacity: 1;
+}
+
+/* Add corner circuit "nodes" that pop up on hover */
+.ev-node, .stat-node {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  box-shadow: 0 0 12px 3px var(--gold);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  z-index: 2;
+  pointer-events: none;
+}
+.ev-node.tl { top: -2px; left: -2px; transform: scale(0); }
+.ev-node.tr { top: -2px; right: -2px; transform: scale(0); }
+.ev-node.bl { bottom: -2px; left: -2px; transform: scale(0); }
+.ev-node.br { bottom: -2px; right: -2px; transform: scale(0); }
+
+.ev:hover .ev-node, .stat:hover .stat-node {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Ensure borders are visible on touch devices/mobile without hovering */
+@media (hover: none), (max-width: 900px) {
+  .ev::before, .stat::before, .prize::before, .p-card::before, .form::before, .map::before, .countdown::before {
+    opacity: 1;
+  }
+  .ev-node, .stat-node {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================================
+   INTRO VIDEO STYLES (RESPONSIVE)
+   ========================================================= */
+.intro-seq {
+  background: #000;
+  padding: 4vh 4vw;
+}
+.intro-video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(201,169,110, 0.3);
+  box-shadow: 0 0 40px rgba(201,169,110, 0.15), inset 0 0 20px rgba(201,169,110, 0.2);
+  z-index: 0;
+}
+.intro-video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.intro-scanlines {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(201,169,110,0.1) 1px, transparent 1px);
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+@media (max-width: 640px) {
+  .intro-seq {
+    padding: 2vh 4vw;
+  }
+  .intro-video-wrapper {
+    border-radius: 12px;
+    border: 1px solid rgba(201,169,110, 0.3);
+    box-shadow: 0 0 20px rgba(201,169,110, 0.15), inset 0 0 10px rgba(201,169,110, 0.2);
+  }
+}
+
+/* =========================================================
+   EVENT MODAL REGISTRATION FORM
+   ========================================================= */
+.form-grp {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-grp label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+.form-grp input, .form-grp select {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--r-1);
+  color: var(--text);
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.3s, background 0.3s;
+}
+.form-grp input:focus, .form-grp select:focus {
+  border-color: var(--gold);
+  background: rgba(255, 255, 255, 0.05);
+}
+[data-theme="light"] .form-grp input, [data-theme="light"] .form-grp select {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #1a1a1a;
+}
+[data-theme="light"] .form-grp input:focus, [data-theme="light"] .form-grp select:focus {
+  border-color: var(--gold);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* =========================================================
+   TEAM SECTION
+   ========================================================= */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+}
+.team-card {
+  text-align: center;
+  padding: 32px 24px;
+  background: rgba(18, 19, 24, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--r-2);
+  transition: transform 0.4s var(--ease), border-color 0.4s;
+}
+.team-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(201, 169, 110, 0.4);
+}
+.team-img-wrapper {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  padding: 4px;
+  background: conic-gradient(from 0deg, transparent 0%, rgba(201,169,110,0.2) 50%, var(--gold) 100%);
+  animation: circuit-spin 6s linear infinite;
+}
+.team-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg);
+}
+[data-theme="light"] .team-card {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+[data-theme="light"] .team-img {
+  background: #f5f5f5;
+}
+
+@media (max-width: 900px) {
+  .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .team-grid { grid-template-columns: 1fr; gap: 24px; }
+}

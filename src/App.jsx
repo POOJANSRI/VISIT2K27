@@ -8,8 +8,8 @@ import About     from './components/About';
 import Events    from './components/Events';
 import Schedule  from './components/Schedule';
 import Prizes    from './components/Prizes';
-import Register  from './components/Register';
 import Partners  from './components/Partners';
+import Team      from './components/Team';
 import Contact   from './components/Contact';
 import Footer    from './components/Footer';
 
@@ -20,17 +20,21 @@ function IntroSequence({ onComplete }) {
   }, [onComplete]);
 
   return (
-    <div className="intro-seq" style={{ background: '#000' }}>
-      <video
-        autoPlay
-        muted
-        playsInline
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
-      >
-        <source src="/hero-bg-2.mp4" type="video/mp4" />
-      </video>
+    <div className="intro-seq">
+      <div className="intro-video-wrapper">
+        <video
+          autoPlay
+          muted
+          playsInline
+        >
+          <source src="/hero-bg-2.mp4?v=2" type="video/mp4" />
+        </video>
+        
+        {/* Animated scanning lines over the video for tech effect */}
+        <div className="intro-scanlines"></div>
+      </div>
 
-      <button className="skip-intro-btn" onClick={onComplete} style={{ zIndex: 10 }}>Skip Intro</button>
+      <button className="skip-intro-btn" onClick={onComplete} style={{ zIndex: 10, bottom: '6vh', right: '6vw' }}>Skip Intro</button>
     </div>
   );
 }
@@ -72,9 +76,6 @@ export default function App() {
     }
   }, [loaded, introFinished]);
 
-  /* ── Selected events (shared between Events modal → Register pills) ── */
-  const [selectedEvents, setSelectedEvents] = useState([]);
-
   /* ── Global hooks ── */
   useReveal();
 
@@ -97,17 +98,11 @@ export default function App() {
       <main id="main" style={{ opacity: introFinished ? 1 : 0, transition: 'opacity 1s ease' }}>
         <Hero />
         <About />
-        <Events
-          onSelectEvent={idx => {
-            const name = ['Prompt Master','Debugging & Defend','Coding Contest','Technical Quiz',
-              'AI Hackathon','Data Hunt','Model Showdown','Paper / Poster Presentation'][idx];
-            setSelectedEvents(prev => prev.includes(name) ? prev : [...prev, name]);
-          }}
-        />
+        <Events />
         <Schedule />
         <Prizes />
-        <Register selectedEvents={selectedEvents} setSelectedEvents={setSelectedEvents} />
         <Partners />
+        <Team />
         <Contact />
       </main>
 

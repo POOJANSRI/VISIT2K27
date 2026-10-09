@@ -55,7 +55,7 @@ export default function Hero() {
         playsInline
         className="hero-video-bg"
       >
-        <source src="/hero-bg.mp4" type="video/mp4" />
+        <source src="/hero-bg.mp4?v=2" type="video/mp4" />
       </video>
 
       <div className="container hero-in">
@@ -91,7 +91,7 @@ export default function Hero() {
 
         <div className="line">
           <div className="hero-cta">
-            <a ref={reg1} href="#register" className="btn btn-gold magnetic">
+            <a ref={reg1} href="#events" className="btn btn-gold magnetic">
               Register Now <span className="arrow">→</span>
             </a>
             <a href="#events" className="btn btn-ghost">Explore Events</a>

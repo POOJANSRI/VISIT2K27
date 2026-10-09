@@ -3,7 +3,7 @@ export default function Contact() {
     <section id="contact">
       <div className="container">
         <div className="sec-head rv">
-          <span className="label">06 — Contact</span>
+          <span className="label">07 — Contact</span>
           <h2>Get in <em>touch</em></h2>
         </div>
 

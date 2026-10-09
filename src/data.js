@@ -11,43 +11,94 @@ export const ICONS = {
   hunt:   '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5M10.5 8v5"/>',
   model:  '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   paper:  '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 15.5h7M9 9h3"/>',
+  sports: '<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/>',
 };
 
-// [name, description, team, day, iconKey]
 export const EVENTS = [
-  ['Prompt Master',             'Prompt engineering challenge.',          'Solo / Duo', 'Day 1',   'prompt'],
-  ['Debugging & Defend',        'Find the bugs, then defend your fix.',   'Duo',        'Day 1',   'debug'],
-  ['Coding Contest',            'Competitive programming under pressure.','Solo',        'Day 1',   'code'],
-  ['Technical Quiz',            'AI/ML and computer science trivia.',     'Duo',        'Day 2',   'quiz'],
-  ['AI Hackathon',              'Build an AI/ML project against the clock.','2–4',      'Day 2–3', 'hack'],
-  ['Data Hunt',                 'A clue-based data and puzzle hunt.',     '2–3',        'Day 2',   'hunt'],
-  ['Model Showdown',            'Best accuracy on a given dataset.',      'Solo / Duo', 'Day 3',   'model'],
-  ['Paper / Poster Presentation','Present your AI research ideas.',       '1–3',        'Day 3',   'paper'],
+  // LITERARY COMPETITIONS
+  { name: 'JAM (Just A Minute)', description: 'Speak on a given topic for a minute without hesitation.', team: 'Solo', category: 'Literary', iconKey: 'paper', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Quiz (Technical & General)', description: 'Test your technical and general knowledge.', team: 'Team', category: 'Literary', iconKey: 'quiz', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Story Continuation', description: 'Continue the story from a given prompt.', team: 'Solo', category: 'Literary', iconKey: 'prompt', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  
+  // CULTURAL COMPETITIONS
+  { name: 'Western Solo Dance', description: 'Showcase your western dance moves solo.', team: 'Solo', category: 'Cultural', iconKey: 'hunt', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Western Group Dance', description: 'Group performance in western style.', team: 'Team', category: 'Cultural', iconKey: 'hunt', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Classical Solo Dance', description: 'Traditional classical dance performance.', team: 'Solo', category: 'Cultural', iconKey: 'hunt', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Spot Duo Dance', description: 'Impromptu duo dance on random tracks.', team: 'Duo', category: 'Cultural', iconKey: 'hunt', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Singing Jodi', description: 'Duet singing competition.', team: 'Duo', category: 'Cultural', iconKey: 'prompt', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Group Singing', description: 'Melodious group singing performance.', team: 'Team', category: 'Cultural', iconKey: 'prompt', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Mono Action', description: 'Solo dramatic performance.', team: 'Solo', category: 'Cultural', iconKey: 'model', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Dialogue Dhamaka', description: 'Deliver famous dialogues with style.', team: 'Solo / Duo', category: 'Cultural', iconKey: 'model', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Short Film', description: 'Screening of student-made short films.', team: 'Team', category: 'Cultural', iconKey: 'hack', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+
+  // TECHNICAL COMPETITIONS
+  { name: 'Tech Treasure Hunt', description: 'A technical clue-based treasure hunt.', team: 'Team', category: 'Technical', iconKey: 'hunt', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Poster Designing & Presentation', description: 'Design and present a technical poster.', team: 'Solo / Duo', category: 'Technical', iconKey: 'paper', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Project Expo', description: 'Exhibition of technical projects.', team: 'Team', category: 'Technical', iconKey: 'model', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Paper Presentation', description: 'Present technical research papers.', team: 'Solo / Duo', category: 'Technical', iconKey: 'paper', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Code relay', description: 'Relay coding competition.', team: 'Team', category: 'Technical', iconKey: 'code', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Tech Memes', description: 'Create hilarious technical memes.', team: 'Solo', category: 'Technical', iconKey: 'prompt', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Pitch Your Ideas', description: 'Pitch your innovative startup ideas.', team: 'Solo / Team', category: 'Technical', iconKey: 'hack', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Debug War', description: 'Find and fix bugs in code fast.', team: 'Solo / Duo', category: 'Technical', iconKey: 'debug', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Speed typing championship', description: 'Test your typing speed and accuracy.', team: 'Solo', category: 'Technical', iconKey: 'code', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Dashboard Designing and Presentation (DS)', description: 'Only for DS students.', team: 'Solo / Duo', category: 'Technical', iconKey: 'model', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Build with AI models (AIML)', description: 'Only for AIML students.', team: 'Team', category: 'Technical', iconKey: 'hack', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Spot the Vulnerability (CS)', description: 'Only for CS students.', team: 'Solo / Duo', category: 'Technical', iconKey: 'debug', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Product marketing challenge (CSBS)', description: 'Only for CSBS students.', team: 'Team', category: 'Technical', iconKey: 'prompt', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+
+  // SPORTS
+  { name: 'Athletics - mens, womens', description: 'Track and field events.', team: 'Solo', category: 'Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Kabaddi - mens, womens', description: 'Traditional contact team sport.', team: 'Team', category: 'Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Kho-kho - mens, womens', description: 'Tag sport.', team: 'Team', category: 'Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Volley Ball - mens, womens', description: 'Team volleyball tournament.', team: 'Team', category: 'Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Badminton - mens, womens', description: 'Singles and doubles badminton.', team: 'Solo / Duo', category: 'Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Cricket - mens', description: 'Cricket tournament for men.', team: 'Team', category: 'Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Throw Ball - womens', description: 'Throw ball tournament for women.', team: 'Team', category: 'Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Tennicoit - womens', description: 'Ring tennis tournament for women.', team: 'Solo / Duo', category: 'Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Pickle Ball', description: 'Pickle ball tournament.', team: 'Solo / Duo', category: 'Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+
+  // E SPORTS
+  { name: 'E - chess', description: 'Online chess tournament.', team: 'Solo', category: 'E-Sports', iconKey: 'quiz', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'E - Football', description: 'Virtual football gaming competition.', team: 'Solo', category: 'E-Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Valorant', description: '5v5 tactical shooter tournament.', team: 'Team', category: 'E-Sports', iconKey: 'hack', formLink: 'https://forms.gle/YOUR_LINK_HERE' },
+  { name: 'Smash karts', description: 'Multiplayer kart racing game.', team: 'Solo / Team', category: 'E-Sports', iconKey: 'sports', formLink: 'https://forms.gle/YOUR_LINK_HERE' }
 ];
 
-// [[time, event, venue], ...]  per day — TODO: confirm
+// [[time, event, venue], ...]  per day
 export const SCHEDULE = [
+  // DAY 1
   [
-    ['09:00','Inauguration Ceremony','[Main Auditorium]'],
-    ['10:30','Prompt Master','[Lab 1]'],
-    ['13:30','Debugging & Defend','[Lab 2]'],
-    ['15:30','Coding Contest','[Lab 3]'],
-    ['18:00','Day 1 Closing','[Main Auditorium]'],
+    ['09:00', 'Inauguration Ceremony', '[Main Auditorium]'],
+    ['10:00', 'Tech Treasure Hunt & Code Relay', '[Lab 1 & 2]'],
+    ['10:30', 'JAM & Story Continuation (Literary)', '[Seminar Hall]'],
+    ['11:00', 'Debug War & Speed Typing Championship', '[Lab 3]'],
+    ['11:30', 'Spot the Vulnerability (CS)', '[CS Lab]'],
+    ['12:00', 'E-Sports: Chess & Smash Karts', '[E-Sports Arena]'],
+    ['13:00', 'Lunch Break', ''],
+    ['14:00', 'Athletics & Badminton', '[Main Ground & Indoor Court]'],
+    ['14:30', 'Kabaddi & Kho-kho (Mens/Womens)', '[Sports Complex]'],
+    ['15:00', 'Western Solo Dance & Spot Duo Dance', '[Open Air Theatre]'],
+    ['15:30', 'Volley Ball (Mens/Womens)', '[Volleyball Court]'],
+    ['16:00', 'Singing Jodi & Mono Action', '[Main Auditorium]'],
+    ['16:30', 'Poster Designing & Tech Memes', '[Creative Hub]'],
+    ['18:00', 'Day 1 Closing', '[Main Auditorium]'],
   ],
+  // DAY 2
   [
-    ['09:30','Technical Quiz — Prelims','[Seminar Hall]'],
-    ['11:00','AI Hackathon begins','[Innovation Hub]'],
-    ['14:00','Data Hunt','[Campus-wide]'],
-    ['16:30','Technical Quiz — Finals','[Seminar Hall]'],
-    ['19:00','Cultural Evening','[Open Air Theatre]'],
-  ],
-  [
-    ['09:00','Model Showdown','[Lab 1]'],
-    ['10:30','Paper / Poster Presentation','[Seminar Hall]'],
-    ['11:00','AI Hackathon — Final Demos','[Innovation Hub]'],
-    ['15:00','Jury Deliberation','[Conference Room]'],
-    ['16:30','Valedictory & Prize Distribution','[Main Auditorium]'],
-  ],
+    ['09:00', 'Quiz (Technical & General)', '[Seminar Hall]'],
+    ['09:30', 'Project Expo & Paper Presentation', '[Exhibition Hall]'],
+    ['10:30', 'Pitch Your Ideas & Product Marketing', '[Conference Room]'],
+    ['11:00', 'Build with AI models & Dashboard Designing', '[AIML Lab & DS Lab]'],
+    ['11:30', 'E-Sports: Valorant & E-Football', '[E-Sports Arena]'],
+    ['13:00', 'Lunch Break', ''],
+    ['14:00', 'Cricket (Mens)', '[Main Ground]'],
+    ['14:30', 'Throw Ball & Tennicoit (Womens)', '[Sports Complex]'],
+    ['15:00', 'Pickle Ball', '[Indoor Court]'],
+    ['15:30', 'Western Group Dance & Classical Solo', '[Open Air Theatre]'],
+    ['16:00', 'Group Singing & Dialogue Dhamaka', '[Main Auditorium]'],
+    ['16:30', 'Short Film Screening', '[Seminar Hall]'],
+    ['17:30', 'Valedictory & Prize Distribution', '[Main Auditorium]'],
+  ]
 ];
 
 // [question, answer]
